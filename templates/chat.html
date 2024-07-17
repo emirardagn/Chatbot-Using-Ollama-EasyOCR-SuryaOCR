@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{model_name}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-box" id="chat-box">
+        <div class="message ai">{{ai_summarize}}</div>
+      </div>
+      <form id="chat-form">
+        <input type="text" id="message-input" class="message-input" placeholder="Sözleşme hangi şirketler arasında yapıldı...">
+        <button type="submit" class="send-button"></button>
+      </form>
+    </div>
+    <script>
+      $(document).ready(function() {
+        $('#chat-form').on('submit', function(event) {
+          event.preventDefault();
+          var userMessage = $('#message-input').val();
+          $('#chat-box').append('<div class="message user">' + userMessage + '</div>');
+          $('#message-input').val('');
+          $.post('/send_message', {message: userMessage}, function(data) {
+            $('#chat-box').append('<div class="message ai">' + data.response + '</div>');
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PDF Yükleme</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>PDF Yükleyin</h1>
+      <form method="post" action="/upload" enctype="multipart/form-data">
+        <label for="model">Modelinizi Seçin</label>
+        <select id="model" name="model">
+          <option value="llama3">Llama</option>
+          <option value="mistral">Mistral</option>
+          <option value="qwen2">Qwen</option>
+        </select>
+        <input type="file" name="file" class="file-input">
+        <input type="submit" value="Yükle" class="upload-button">
+      </form>
+    </div>
+  </body>
+</html>
