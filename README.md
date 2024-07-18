@@ -1,9 +1,7 @@
 
 # Document Understanding and Chatbot Interface
 
-Document Understanding and Chatbot Interface
-
-Document Understanding and Chatbot Interface Description: This project aims to develop a web-based application that allows users to upload documents (PDFs or images) and interact with an AI-powered chatbot to understand the content. The application utilizes OCR (Optical Character Recognition) to extract text from the uploaded documents and then summarizes and answers questions about the content using a chatbot model.
+This project aims to develop a web-based application that allows users to upload documents (PDFs or images) and interact with an AI-powered chatbot to understand the content. The application utilizes OCR (Optical Character Recognition) to extract text from the uploaded documents and then summarizes and answers questions about the content using a chatbot model.
 ## Key Features:
 
 
