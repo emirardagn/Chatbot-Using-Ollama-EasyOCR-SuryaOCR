@@ -27,4 +27,4 @@ def surya_to_json(pdf_path,file_name):
     
 
     
-    os.remove(f"results/surya/{file_name}/results")
+    os.remove("results/surya/")
