@@ -19,6 +19,8 @@ def upload():
     global messages
     global model
     model = request.form["model"]
+    doc_type = request.form["doc_type"]
+    ocr_type = request.form["ocr_type"]
     if request.method == 'POST':
         if 'file' not in request.files:
             return redirect(request.url)
@@ -26,11 +28,18 @@ def upload():
         if file.filename == '':
             return redirect(request.url)
         if file:
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-            file.save(file_path)
+            
+            if(doc_type=="pdf"):     
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+                file.save(file_path)
+                chatbot.pdf_to_json(file_path,ocr_type,file.filename)
+                messages,ai_summarize = chatbot.summarize_json(chatbot.data,model)
+            else:
+                file_path = os.path.join("output_images", "page0.jpg")
+                file.save(file_path)
+                chatbot.jpg_to_json(file_path,ocr_type,file.filename)
+                messages,ai_summarize = chatbot.summarize_json(chatbot.data,model)
 
-            chatbot.pdf_to_json(file_path)
-            messages,ai_summarize = chatbot.summarize_json(chatbot.data,model)
             return redirect(url_for('chat', ai_summarize=ai_summarize, model_name = model))
     return render_template('upload.html')
 

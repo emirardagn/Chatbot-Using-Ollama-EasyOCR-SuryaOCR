@@ -7,14 +7,23 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
-    <div class="container">
+    <div class="containerss">
       <h1>PDF Yükleyin</h1>
+      <h2>Modelinizi Seçin</h2>
       <form method="post" action="/upload" enctype="multipart/form-data">
-        <label for="model">Modelinizi Seçin</label>
+        
         <select id="model" name="model">
           <option value="llama3">Llama</option>
           <option value="mistral">Mistral</option>
           <option value="qwen2">Qwen</option>
+        </select>
+        <select id="ocr_type" name="ocr_type">
+          <option value="easy">Easy OCR</option>
+          <option value="surya">Surya</option>
+        </select>
+        <select id="doc_type" name="doc_type">
+          <option value="pdf">PDF</option>
+          <option value="jpg">JPG</option>
         </select>
         <input type="file" name="file" class="file-input">
         <input type="submit" value="Yükle" class="upload-button">

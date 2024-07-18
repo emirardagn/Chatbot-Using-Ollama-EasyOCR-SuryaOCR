@@ -1,8 +1,8 @@
 import requests
 import json
-import ocr
+import ocr.easy_ocr as easy_ocr
+import ocr.surya_ocr as surya_ocr
 import pandas as pd
-import easyocr
 def send_request(messages,model):
     url = "http://localhost:11434/api/chat"
     payload = {
@@ -26,17 +26,42 @@ data=[]
 messages = []
 
 # pdf->jpeg->json
-def pdf_to_json(pdf_path):
+def pdf_to_json(pdf_path,ocr_type,file_name):
     global data
-    ocr.pdf_to_jpg(pdf_path)
-    ocr.jpg_to_json(ocr.pdf_size)
-    with open('ocr_output.json', 'r') as f:
-        data = json.load(f)
+    
+    if (ocr_type=="easy"):
+        #if easy ocr
+        easy_ocr.pdf_to_jpg(pdf_path)
+        easy_ocr.jpg_to_json(easy_ocr.pdf_size)
+        with open('ocr_output.json', 'r') as f:
+            data = json.load(f)
+            print(data)
+    else:
+        print(file_name)
+        surya_ocr.surya_to_json(pdf_path,file_name)
+        with open('ocr_output.json', 'r') as f:
+            data = json.load(f)
+            print(data)
 
+
+#single page jpg->json
+def jpg_to_json(jpg_path,ocr_type,file_name):
+    if(ocr_type=="easy"):
+        global data
+        easy_ocr.jpg_to_json(1)
+        with open('ocr_output.json', 'r') as f:
+            data = json.load(f)
+            print(data)
+    else:
+        print(file_name)
+        surya_ocr.surya_to_json(jpg_path,"page0")
+        with open('ocr_output.json', 'r') as f:
+            data = json.load(f)
+            print(data)
+    
 
 #Data as a json format
 def summarize_json(data,model):
-    #messages = [{"role": "user", "content": f"You are a chatbot that understands information related to an e-invoice delivery note. Below is a structure of an e-invoice delivery note in JSON format. By analyzing this structure, you should understand what each component means and provide accurate information to the user. You should extract details. JSON: {data}, Analyze this e-invoice delivery note in JSON format and provide detailed explanations of each component to assist the user."}]
     messages = [{"role": "user", "content":f"Türkçe bir chatbotsun,sana json formatında atılan belgenin türünü ve bütün bilgileri anlamanı ve soruları cevaplamanı istiyorum {data}"}]
     answer = send_request(messages,model)
     answer_for_array = {"role": "assistant","content": answer}
