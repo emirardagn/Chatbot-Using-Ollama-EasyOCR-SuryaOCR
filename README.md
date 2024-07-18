@@ -15,25 +15,3 @@ Frontend: HTML, CSS, JavaScript
 OCR: Easy OCR, Surya OCR
 AI Models: Custom models for summarization and question answering
 Storage: Local storage for uploaded files and OCR results
-Installation:
-Clone the repository:
-bash
-Kodu kopyala
-git clone https://github.com/yourusername/yourrepository.git
-Install the required packages:
-bash
-Kodu kopyala
-pip install -r requirements.txt
-Run the application:
-bash
-Kodu kopyala
-flask run
-Usage:
-Navigate to the home page.
-Upload a document (PDF or image).
-Choose the document type and OCR type.
-View the summarized content and interact with the chatbot to ask questions about the document.
-Future Enhancements:
-Add support for more document types and OCR engines.
-Improve the AI models for better summarization and question answering.
-Implement user authentication and document history tracking.
