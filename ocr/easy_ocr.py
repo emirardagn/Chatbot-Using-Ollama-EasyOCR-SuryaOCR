@@ -2,6 +2,7 @@ import numpy
 import easyocr
 import json
 from pdf2image import convert_from_path
+import os
 
 
 dataset = []
@@ -38,6 +39,7 @@ def jpg_to_json(pdf_size):
     for i in range(pdf_size):
         img_path = f"output_images/page{i}.jpg"
         get_ocr_result(img_path)
+        os.remove(img_path)
 
 
     json_data = json.dumps(dataset, ensure_ascii=False)

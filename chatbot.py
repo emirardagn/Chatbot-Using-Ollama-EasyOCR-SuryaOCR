@@ -3,6 +3,7 @@ import json
 import ocr.easy_ocr as easy_ocr
 import ocr.surya_ocr as surya_ocr
 import pandas as pd
+import os
 def send_request(messages,model):
     url = "http://localhost:11434/api/chat"
     payload = {
@@ -35,13 +36,15 @@ def pdf_to_json(pdf_path,ocr_type,file_name):
         easy_ocr.jpg_to_json(easy_ocr.pdf_size)
         with open('ocr_output.json', 'r') as f:
             data = json.load(f)
-            print(data)
+        os.remove("ocr_output.json")
+        os.remove(pdf_path)
     else:
         print(file_name)
         surya_ocr.surya_to_json(pdf_path,file_name)
         with open('ocr_output.json', 'r') as f:
             data = json.load(f)
-            print(data)
+        os.remove("ocr_output.json")
+        os.remove(pdf_path)
 
 
 #single page jpg->json
@@ -51,13 +54,13 @@ def jpg_to_json(jpg_path,ocr_type,file_name):
         easy_ocr.jpg_to_json(1)
         with open('ocr_output.json', 'r') as f:
             data = json.load(f)
-            print(data)
+        os.remove("ocr_output.json")
     else:
         print(file_name)
         surya_ocr.surya_to_json(jpg_path,"page0")
         with open('ocr_output.json', 'r') as f:
             data = json.load(f)
-            print(data)
+        os.remove("ocr_output.json")
     
 
 #Data as a json format
@@ -73,7 +76,7 @@ def summarize_json(data,model):
 def ask_question(request,model):
     
     answer = send_request(request,model)
-   
+    print(request)
     return answer
 
 

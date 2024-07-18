@@ -1,5 +1,6 @@
 import subprocess
 import json
+import os
 
 def surya_to_json(pdf_path,file_name):
     file_name = file_name.split(".")[0]
@@ -23,3 +24,7 @@ def surya_to_json(pdf_path,file_name):
         new_data[file_name].append(new_text_lines)
     with open('ocr_output.json', 'w', encoding='utf-8') as file:
         json.dump(new_data[file_name][0], file, ensure_ascii=False)
+    
+
+    
+    os.remove(f"results/surya/{file_name}/results")
